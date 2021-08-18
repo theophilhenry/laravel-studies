@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Toko Roti Theophil HS
                 </div>
 
                 <div class="links">
