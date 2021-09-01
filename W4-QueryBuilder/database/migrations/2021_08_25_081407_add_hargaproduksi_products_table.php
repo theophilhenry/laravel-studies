@@ -14,7 +14,7 @@ class AddHargaproduksiProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->double("harga_produksi_produk", 8, 2)->after("nama_produk");
+            $table->double("product_production_price", 8, 2)->after("product_name");
         });
     }
 
@@ -26,7 +26,7 @@ class AddHargaproduksiProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('harga_produksi_produk');
+            $table->dropColumn('product_production_price');
         });
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,26 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-/*
-Route::get('/helloworld', function () {
-    return 'Hello World, Pak Dosen';
-});
 
-Route::view('/selamatdatang', 'welcome');
+// Route::get('/menu', function(){
+//     return view('menu');
+// });
 
-Route::get('/mahasiswa/{nama?}', function ($nama = "Default") {
-    echo "Hello $nama";
-})->name('showMahasiswa');
+// Route::get('/menu/{category}/{product}', function($category, $product){
+//     return view('detail', ['category'=>$category, 'product'=>$product]);
+// });
 
-Route::get('/greetings/{nama}', function ($nama) {
-    return view('welcome', ['nama'=>$nama]);
-})->name('showGreetings');
-*/
-
-Route::get('/menu', function(){
-    return view('menu');
-});
-
-Route::get('/menu/{category}/{product}', function($category, $product){
-    return view('detail', ['category'=>$category, 'product'=>$product]);
-});
+Route::resource('/product', 'ProductController');
+Route::resource('/supplier', 'SupplierController');
+Route::resource('/category', 'CategoryController');

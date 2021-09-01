@@ -13,89 +13,98 @@ class ProductSeeder extends Seeder
     public function run()
     {
         DB::table('products')->insert([
-            'nama_produk' => 'Roti Tawar',
-            'harga_jual_produk' => 10000,
-            'harga_produksi_produk' => 8000,
-            'stok'=> 50,
+            'product_name' => 'Roti Tawar',
+            'product_selling_price' => 10000,
+            'product_production_price' => 8000,
+            'product_stock'=> 50,
             'category_id' => 1,
             'supplier_id' => 1,
+            'product_image' => "rotitawar.png",
         ]);
 
         DB::table('products')->insert([
-            'nama_produk' => 'Roti Gandum',
-            'harga_jual_produk' => 12000,
-            'harga_produksi_produk' => 8000,
-            'stok'=> 50,
+            'product_name' => 'Roti Gandum',
+            'product_selling_price' => 12000,
+            'product_production_price' => 8000,
+            'product_stock'=> 50,
             'category_id' => 1,
             'supplier_id' => 1,
+            'product_image' => "rotigandum.png",
         ]);
 
         DB::table('products')->insert([
-            'nama_produk' => 'Roti Coklat',
-            'harga_jual_produk' => 14000,
-            'harga_produksi_produk' => 8000,
-            'stok'=> 50,
+            'product_name' => 'Roti Coklat',
+            'product_selling_price' => 14000,
+            'product_production_price' => 8000,
+            'product_stock'=> 50,
             'category_id' => 1,
             'supplier_id' => 1,
+            'product_image' => "roticoklat.png",
         ]);
 
         // Pudding
 
         DB::table('products')->insert([
-            'nama_produk' => 'Pudding Pannacotta',
-            'harga_jual_produk' => 15000,
-            'harga_produksi_produk' => 8000,
-            'stok'=> 50,
+            'product_name' => 'Pudding Pannacotta',
+            'product_selling_price' => 15000,
+            'product_production_price' => 8000,
+            'product_stock'=> 50,
             'category_id' => 2,
             'supplier_id' => 2,
+            'product_image' => "puddingpannacotta.png",
         ]);
 
 
         DB::table('products')->insert([
-            'nama_produk' => 'Pudding Fla',
-            'harga_jual_produk' => 10000,
-            'harga_produksi_produk' => 8000,
-            'stok'=> 50,
+            'product_name' => 'Pudding Fla',
+            'product_selling_price' => 10000,
+            'product_production_price' => 8000,
+            'product_stock'=> 50,
             'category_id' => 2,
             'supplier_id' => 2,
+            'product_image' => "puddingfla.png",
         ]);
 
         DB::table('products')->insert([
-            'nama_produk' => 'Pudding Buah',
-            'harga_jual_produk' => 10000,
-            'harga_produksi_produk' => 8000,
-            'stok'=> 50,
+            'product_name' => 'Pudding Buah',
+            'product_selling_price' => 10000,
+            'product_production_price' => 8000,
+            'product_stock'=> 50,
             'category_id' => 2,
             'supplier_id' => 2,
+            'product_image' => "puddingbuah.png",
         ]);
 
         // Sup
         
         DB::table('products')->insert([
-            'nama_produk' => 'Sup Ikan',
-            'harga_jual_produk' => 20000,
-            'harga_produksi_produk' => 8000,
-            'stok'=> 50,
+            'product_name' => 'Sup Ikan',
+            'product_selling_price' => 20000,
+            'product_production_price' => 8000,
+            'product_stock'=> 50,
             'category_id' => 3,
             'supplier_id' => 3,
+            'product_image' => "supikan.png",
         ]);
 
         DB::table('products')->insert([
-            'nama_produk' => 'Sup Buah',
-            'harga_jual_produk' => 10000,
-            'harga_produksi_produk' => 8000,
-            'stok'=> 50,
+            'product_name' => 'Sup Buah',
+            'product_selling_price' => 10000,
+            'product_production_price' => 8000,
+            'product_stock'=> 50,
             'category_id' => 3,
             'supplier_id' => 3,
+            'product_image' => "supbuah.png",
         ]);
 
         DB::table('products')->insert([
-            'nama_produk' => 'Sup Ayam',
-            'harga_jual_produk' => 18000,
-            'harga_produksi_produk' => 8000,
-            'stok'=> 50,
+            'product_name' => 'Sup Ayam',
+            'product_selling_price' => 18000,
+            'product_production_price' => 8000,
+            'product_stock'=> 50,
             'category_id' => 3,
             'supplier_id' => 3,
+            'product_image' => "supayam.png",
         ]);
     }
 }

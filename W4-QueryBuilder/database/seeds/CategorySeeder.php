@@ -14,17 +14,17 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->insert([
             'id' => '1',
-            'nama_kategori' => 'Roti'
+            'category_name' => 'Roti'
         ]);
         
         DB::table('categories')->insert([
             'id' => '2',
-            'nama_kategori' => 'Pudding'
+            'category_name' => 'Pudding'
         ]);
         
         DB::table('categories')->insert([
             'id' => '3',
-            'nama_kategori' => 'Sup'
+            'category_name' => 'Sup'
         ]);
     }
 }
