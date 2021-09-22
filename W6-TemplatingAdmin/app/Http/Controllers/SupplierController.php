@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SupplierController extends Controller
 {
@@ -81,5 +82,16 @@ class SupplierController extends Controller
     public function destroy(Supplier $supplier)
     {
         //
+    }
+    
+    public function totalproductpersupplier(){
+        $data = DB::select(DB::raw(
+            "SELECT s.id, s.name, count(s.id) as jumlah
+             FROM suppliers s
+             INNER JOIN products p ON s.id = p.supplier_id
+             GROUP BY s.id, s.name"
+        ));
+
+        return view('report.totalproductpersupplier', compact("data"));
     }
 }

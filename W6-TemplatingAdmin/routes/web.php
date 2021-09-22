@@ -18,17 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/menu', function(){
-//     return view('menu');
-// });
-
-// Route::get('/menu/{category}/{product}', function($category, $product){
-//     return view('detail', ['category'=>$category, 'product'=>$product]);
-// });
-
 Route::resource('/product', 'ProductController');
 Route::resource('/supplier', 'SupplierController');
 Route::resource('/category', 'CategoryController');
 
-Route::get('/report/showcake/{category_name}', 'CategoryController@showCake')->name('reportShowCake');
-Route::get('/report/categoryminprice', 'CategoryController@categoryMinPrice');
+Route::get('/report/showcake/{category:category_name}', 'CategoryController@showCake')->name('reportShowCake');
+Route::get('/report/totalproductpercategory', "CategoryController@totalproductpercategory")->name('reportTotalProductPerCategory');
+Route::get('/report/totalproductpersupplier', "SupplierController@totalproductpersupplier")->name('reportTotalProductPerSupplier');

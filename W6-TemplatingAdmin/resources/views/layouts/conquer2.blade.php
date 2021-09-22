@@ -478,21 +478,21 @@ License: You must have a valid license purchased only from themeforest(the above
 						</div>
 					</form>
 				</li>
-				<li class="start active ">
+				<li class="start">
 					<a href="{{ url('/') }}">
 					<i class="icon-home"></i>
 					<span class="title">Home</span>
 					<span class="selected"></span>
 					</a>
 				</li>
-				<li class="start active ">
+				<li class="start">
 					<a href="{{ url('/category') }}">
                     <i class="icon-settings"></i>
 					<span class="title">Category</span>
 					<span class="selected"></span>
 					</a>
 				</li>
-				<li class="start active ">
+				<li class="start">
 					<a href="{{ url('/product') }}">
 					<i class="icon-settings"></i>
 					<span class="title">Product</span>
@@ -501,23 +501,23 @@ License: You must have a valid license purchased only from themeforest(the above
 				</li>
 				<li >
 					<a href="javascript:;">
-					<i class="icon-puzzle"></i>
-					<span class="title">Page Layouts</span>
+					<i class="icon-settings"></i>
+					<span class="title">Report</span>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="layout_sidebar_fixed.html">
+							<a href="/report/showcake/roti">
 							<i class="icon-anchor"></i>
-							Sidebar Fixed Page</a>
+							Show Cake with Category Roti</a>
 						</li>
 						<li>
-							<a href="layout_sidebar_closed.html">
+							<a href="/report/totalproductpercategory">
 							<i class="icon-book-open"></i>
 							Sidebar Closed Page</a>
 						</li>
 						<li>
-							<a href="layout_boxed_page.html">
+							<a href="/report/totalproductpersupplier">
 							<i class="icon-pin"></i>
 							Boxed Page</a>
 						</li>
