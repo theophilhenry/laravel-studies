@@ -41,11 +41,11 @@
                         <td>{{ $supplier->supplier_name }}</td>
                         <td>{{ $supplier->supplier_address }}</td>
                         <td>
-                            <a href="{{ route('supplier.show', $supplier->id ) }}" class="btn btn-sm" 
+                            <a href="{{ route('supplier.show', $supplier->id) }}" class="btn btn-sm"
                                 data-target="#mymodal" data-toggle="modal">
                                 Show in New Page
                             </a>
-                            <a href="#basic" class="btn btn-warning btn-sm" data-toggle="modal">
+                            <a href="#basic" class="btn btn-warning btn-sm" data-toggle="modal" onclick="getDetailData({{$supplier->id}})">
                                 <i class="fa fa-pencil"></i>
                                 Show w/ AJAX
                             </a>
@@ -55,24 +55,23 @@
             </tbody>
         </table>
 
-        {{-- BEGIN Modal Basic --}}
-        <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Modal Title</h4>
-                    </div>
-                    <div class="modal-body">
-                        Modal body goes here
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
+        <div id="msg">
+
         </div>
-        {{-- END Modal Basic --}}
-    @endsection
+@endsection
+
+@section('ajax')
+    <script>
+        function getDetailData(id) {
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('supplier.showAjax') }}",
+                data: '_token = <?php echo csrf_token(); ?> &id=' + id,
+                success: function(data) {
+                    alert(id);
+                    // $('#msg').html(data.msg);
+                }
+            });
+        }
+    </script>
+@endsection

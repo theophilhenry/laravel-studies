@@ -26,4 +26,4 @@ Route::get('/report/showcake/{category:category_name}', 'CategoryController@show
 Route::get('/report/totalproductpercategory', "CategoryController@totalproductpercategory")->name('reportTotalProductPerCategory');
 Route::get('/report/totalproductpersupplier', "SupplierController@totalproductpersupplier")->name('reportTotalProductPerSupplier');
 
-Route::post('');
+Route::post('supplier/showshowAjax', 'SupplierController@showAjax')->name('supplier.showAjax');

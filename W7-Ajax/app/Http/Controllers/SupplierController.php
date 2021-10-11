@@ -97,14 +97,14 @@ class SupplierController extends Controller
         return view('report.totalproductpersupplier', compact("data"));
     }
 
-    public function showInfo(Request $request)
+    public function showAjax(Request $request)
     {
         $id = $request->get('id');
         $supplier = Supplier::find($id);
         $product = $supplier->listOfProducts();
 
         return response()->json(array(
-            'msg' => view('supplier.showmodal', compact('$supplier', '$product'))->render()
-        ));
+            'msg' => "xxx",//view('supplier.showmodal', compact('$supplier', '$product'))->render()
+        ), 200);
     }
 }
