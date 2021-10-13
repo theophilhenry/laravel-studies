@@ -29,27 +29,25 @@
             <thead class="flip-content">
                 <tr>
                     <th>ID</th>
-                    <th>Supplier Name</th>
-                    <th>Supplier Adress</th>
+                    <th>Pembeli</th>
+                    <th>Kasir</th>
+                    <th>Tanggal Transaksi</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $supplier)
+                @foreach ($transactions as $transaction)
                     <tr>
-                        <td class="numeric">{{ $supplier->id }}</td>
-                        <td>{{ $supplier->supplier_name }}</td>
-                        <td>{{ $supplier->supplier_address }}</td>
+                        <td class="numeric">{{ $transaction->id }}</td>
+                        <td>{{ $transaction->customer->customer_name }}</td>
+                        <td>{{ $transaction->user->name }}</td>
+                        <td>{{ $transaction->transaction_date }}</td>
                         <td>
-                            <a href="{{ route('supplier.show', $supplier->id) }}" class="btn btn-sm"
-                                data-target="#mymodal" data-toggle="modal">
-                                Show in a New Page
-                            </a>
-                            <a href="#modalSupplier" class="btn btn-warning btn-sm" data-toggle="modal"
-                                onclick="getDetailData({{ $supplier->id }})">
+                            <button type="button" data-target="#modalTransaction" class="btn btn-warning btn-sm" data-toggle="modal"
+                                onclick="getDetailData({{ $transaction->id }})">
                                 <i class="fa fa-pencil"></i>
-                                Show w/ Modal AJAX
-                            </a>
+                                Lihat Rincian Pembelian
+                            </button>
 
 
                         </td>
@@ -60,7 +58,22 @@
 
 
 
-        <div class="modal fade" id="modalSupplier" tabindex="-1" role="modal" aria-hidden="true" style="display: none;">
+        <div class="modal fade" id="modalTransaction" tabindex="-1" role="modal" aria-hidden="true"
+            style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Rincian Pembelian</h4>
+                    </div>
+                    <div class="modal-body" id="modalTransactionBody">
+                        {{-- Modal Body Here --}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
     @endsection
 
@@ -69,13 +82,13 @@
             function getDetailData(id) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ route('supplier.showAjax') }}",
+                    url: "{{ route('transaction.showAjax') }}",
                     data: {
                         '_token': '<?php echo csrf_token(); ?>',
                         'id': id,
                     },
                     success: function(data) {
-                        $('#modalSupplier').html(data.msg);
+                        $('#modalTransactionBody').html(data.msg);
                     }
                 });
             }

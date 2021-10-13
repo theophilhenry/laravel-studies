@@ -8,7 +8,7 @@ class Supplier extends Model
 {
     public $timestamps = false; // Category doesn't have timestamps
 
-    public function listOfProducts(){
+    public function products(){
         return $this->hasMany('App\Product', 'supplier_id', 'id');
     }
 }
