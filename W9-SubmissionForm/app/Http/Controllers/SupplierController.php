@@ -11,17 +11,23 @@ class SupplierController extends Controller
     public function index()
     {
         $queryModel = Supplier::all();
-        return view('supplier.index', ['data' => $queryModel]);
+        return view('suppliers.index', ['data' => $queryModel]);
     }
 
     public function create()
     {
-        //
+        return view('suppliers.create');
     }
 
     public function store(Request $request)
     {
-        //
+        $supplier = new Supplier();
+        $supplier->supplier_name = $request->get('supplier_name');
+        $supplier->supplier_address = $request->get('supplier_address');
+        $supplier->save();
+
+        session()->flash("success", "Success! Supplier is Stored");
+        return redirect()->route("suppliers.index");
     }
 
     public function show(Supplier $supplier)
@@ -63,7 +69,7 @@ class SupplierController extends Controller
         $products = $supplier->products;
 
         return response()->json(array(
-            'msg' => view('supplier.showmodal', compact('supplier', 'products'))->render()
+            'msg' => view('suppliers.showmodal', compact('supplier', 'products'))->render()
         ), 200);
     }
 }

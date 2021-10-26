@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="page-content">
+        @include('alerts.alert')
+
         <h3 class="page-title">
             Supplier <small>list of suppliers</small>
         </h3>
@@ -17,11 +19,7 @@
                 </li>
             </ul>
             <div class="page-toolbar">
-                <div id="dashboard-report-range" class="pull-right tooltips btn btn-fit-height btn-primary"
-                    data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
-                    <i class="icon-calendar"></i>&nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp; <i
-                        class="fa fa-angle-down"></i>
-                </div>
+                <a href="{{ route('suppliers.create') }}" class="btn btn-success">Add Supplier</a>
             </div>
         </div>
 
@@ -41,7 +39,7 @@
                         <td>{{ $supplier->supplier_name }}</td>
                         <td>{{ $supplier->supplier_address }}</td>
                         <td>
-                            <a href="{{ route('supplier.show', $supplier->id) }}" class="btn btn-sm"
+                            <a href="{{ route('suppliers.show', $supplier->id) }}" class="btn btn-sm"
                                 data-target="#mymodal" data-toggle="modal">
                                 Show in a New Page
                             </a>
@@ -69,7 +67,7 @@
             function getDetailData(id) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ route('supplier.showAjax') }}",
+                    url: "{{ route('suppliers.showAjax') }}",
                     data: {
                         '_token': '<?php echo csrf_token(); ?>',
                         'id': id,

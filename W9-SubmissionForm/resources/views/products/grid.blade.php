@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="page-content">
+        @include('alerts.alert')
         <h3 class="page-title">
             Product <small>list of products</small>
         </h3>
@@ -17,11 +18,7 @@
                 </li>
             </ul>
             <div class="page-toolbar">
-                <div id="dashboard-report-range" class="pull-right tooltips btn btn-fit-height btn-primary"
-                    data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
-                    <i class="icon-calendar"></i>&nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp; <i
-                        class="fa fa-angle-down"></i>
-                </div>
+                <a href="{{ route('products.create') }}" class="btn btn-success">Add Product</a>
             </div>
         </div>
         <div class="row">
@@ -32,8 +29,14 @@
                             <img src="{{ asset('images/' . $product->product_image) }}" alt="..." style="height: 200px;">
                         </div>
                         <div class="panel-body">
-                            <h5 class="card-title">{{ $product->id }}</h5>
-                            <p class="card-text">{{ $product->product_name }}</p>
+                            <h5 class="card-title">{{ $product->product_name }}</h5>
+                            <p class="card-text">
+                                <p>Production Price : {{ $product->product_production_price }}</p>
+                                <p>Selling Price : {{ $product->product_selling_price }}</p>
+                                <p>Stock : {{ $product->product_stock }}</p>
+                                <p>Category : {{ $product->category->category_name }}</p>
+                                <p>Supplier : {{ $product->supplier->supplier_name }}</p>
+                            </p>
                         </div>
                         <div class="panel-footer">
                             <a href="#" class="btn btn-primary">Read More</a>

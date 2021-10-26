@@ -18,15 +18,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/product', 'ProductController');
-Route::resource('/supplier', 'SupplierController');
-Route::resource('/category', 'CategoryController');
-Route::resource('/transaction', 'TransactionController');
+Route::resource('/products', 'ProductController');
+Route::resource('/suppliers', 'SupplierController');
+Route::resource('/categories', 'CategoryController');
+Route::resource('/transactions', 'TransactionController');
 
-Route::get('/report/showcake/{category:category_name}', 'CategoryController@showCake')->name('reportShowCake');
-Route::get('/report/totalproductpercategory', "CategoryController@totalproductpercategory")->name('reportTotalProductPerCategory');
-Route::get('/report/totalproductpersupplier', "SupplierController@totalproductpersupplier")->name('reportTotalProductPerSupplier');
+Route::get('/reports/showcake/{category:category_name}', 'CategoryController@showCake')->name('reports.showCake');
+Route::get('/reports/totalproductpercategory', "CategoryController@totalproductpercategory")->name('reports.totalProductPerCategory');
 
-Route::post('transaction/showshowAjax', 'TransactionController@showAjax')->name('transaction.showAjax');
-Route::post('supplier/showshowAjax', 'SupplierController@showAjax')->name('supplier.showAjax');
+Route::post('transactions/showshowAjax', 'TransactionController@showAjax')->name('transactions.showAjax');
+Route::post('suppliers/showshowAjax', 'SupplierController@showAjax')->name('suppliers.showAjax');
 

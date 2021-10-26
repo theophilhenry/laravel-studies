@@ -54,7 +54,7 @@
                 @foreach ($data as $category)
                     <tr>
                         <td>{{ $category->id }}</td>
-                        <td>{{ $category->nama_kategori }}</td>
+                        <td>{{ $category->category_name }}</td>
                         <td>{{ $category->jumlah }}</td>
                     </tr>
                 @endforeach

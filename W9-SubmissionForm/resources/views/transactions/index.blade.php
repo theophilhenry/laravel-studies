@@ -3,17 +3,17 @@
 @section('content')
     <div class="page-content">
         <h3 class="page-title">
-            Supplier <small>list of suppliers</small>
+            Transactions <small>list of transactions</small>
         </h3>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
                     <i class="fa fa-home"></i>
-                    <a href="index.html">Supplier</a>
+                    <a href="index.html">Transactions</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="#">List of Supplier</a>
+                    <a href="#">List of Transactions</a>
                 </li>
             </ul>
             <div class="page-toolbar">
@@ -82,7 +82,7 @@
             function getDetailData(id) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ route('transaction.showAjax') }}",
+                    url: "{{ route('transactions.showAjax') }}",
                     data: {
                         '_token': '<?php echo csrf_token(); ?>',
                         'id': id,

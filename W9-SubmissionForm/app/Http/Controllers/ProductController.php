@@ -2,88 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Product;
+use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        // $queryRaw = DB::select(DB::raw('SELECT * FROM products'));
-        // $queryBuilder = DB::table('products')->get();
         $queryModel = Product::all();
-
-        // return view('product.index', ['data'=>$queryModel]);
-        return view('product.grid', ['data'=>$queryModel]);
+        return view('products.grid', ['data' => $queryModel]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+        return view('products.create', compact('categories', 'suppliers'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $product->product_name = $request->get('product_name');
+        $product->product_production_price = $request->get('product_production_price');
+        $product->product_selling_price = $request->get('product_selling_price');
+        $product->product_stock = $request->get('product_stock');
+        $product->category_id = $request->get("category_id");
+        $product->supplier_id = $request->get("supplier_id");
+        $product->product_image = "default.png";
+        $product->save();
+
+        session()->flash("success", "Success! Product is Stored");
+        return redirect()->route("products.index");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function show(Product $product)
     {
-        return view('product.show', ["data" => $product]);
+        return view('products.show', ["data" => $product]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Product $product)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Product $product)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Product $product)
     {
         //
