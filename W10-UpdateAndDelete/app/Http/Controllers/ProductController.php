@@ -46,16 +46,29 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+        return view("products.edit", compact('product', 'categories', 'suppliers'));
     }
 
     public function update(Request $request, Product $product)
     {
-        //
+        $product->product_name = $request->get('product_name');
+        $product->product_production_price = $request->get('product_production_price');
+        $product->product_selling_price = $request->get('product_selling_price');
+        $product->product_stock = $request->get('product_stock');
+        $product->category_id = $request->get("category_id");
+        $product->supplier_id = $request->get("supplier_id");
+        $product->save();
+
+        session()->flash("success", "Success! Product is Updated");
+        return redirect()->route("products.index");
     }
 
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        session()->flash("success", "Success! Product is Deleted");
+        return redirect()->route("products.index");
     }
 }

@@ -17,12 +17,17 @@ class CategoryController extends Controller
 
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->category_name = $request->get('category_name');
+        $category->save();
+
+        session()->flash("success", "Success! Category is Stored");
+        return redirect()->route("categories.index");
     }
 
     public function show(Category $category)
@@ -32,17 +37,23 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        //
+        return view("categories.edit", compact('category'));
     }
 
     public function update(Request $request, Category $category)
     {
-        //
+        $category->category_name = $request->get('category_name');
+        $category->save();
+
+        session()->flash("success", "Success! Category is Updated");
+        return redirect()->route("categories.index");
     }
 
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        session()->flash("success", "Success! Category is Deleted");
+        return redirect()->route("categories.index");
     }
 
     public function showCake(Category $category)

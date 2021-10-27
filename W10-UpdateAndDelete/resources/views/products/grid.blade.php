@@ -39,7 +39,8 @@
                             </p>
                         </div>
                         <div class="panel-footer">
-                            <a href="#" class="btn btn-primary">Read More</a>
+                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <form action="{{ route('products.destroy', $product->id) }}" method="post" style="display: inline;">@csrf @method('DELETE')<button type="submit" href="" class="btn btn-danger btn-sm" onclick="if(!confirm('Delete the data?')) return false;">Delete</button></form>
                         </div>
                     </div>
                 </div>

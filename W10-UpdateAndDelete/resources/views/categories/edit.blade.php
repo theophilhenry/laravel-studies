@@ -3,17 +3,17 @@
 @section('content')
 <div class="page-content">
     <h3 class="page-title">
-        Create New <small>supplier</small>
+        Edit <small>category</small>
     </h3>
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
                 <i class="fa fa-home"></i>
-                <a href="index.html">Supplier</a>
+                <a href="index.html">Category</a>
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <a href="#">Create New Supplier</a>
+                <a href="#">Create New Category</a>
             </li>
         </ul>
         <div class="page-toolbar">
@@ -23,19 +23,16 @@
         </div>
     </div>
 
-    <form method="POST" action="{{ route('suppliers.store') }}">
+    <form method="POST" action="{{ route('categories.update', $category->id) }}">
         @csrf
+        @method("PATCH")
         
         <div class="form-group">
             <label for="inputName">Name</label>
-            <input type="text" class="form-control" id="inputName" placeholder="Enter Name" name="supplier_name">
-        </div>
-        <div class="form-group">
-            <label>Address</label>
-            <textarea class="form-control" rows="3" name="supplier_address"></textarea>
+            <input type="text" class="form-control" id="inputName" placeholder="Enter Name" name="category_name" value="{{ $category->category_name }}">
         </div>
         <button type="submit" class="btn btn-info">Submit</button>
-        <a href="{{ route('suppliers.index') }}" type="button" class="btn btn-default">Cancel</a>
+        <a href="{{ route('categories.index') }}" class="btn btn-default">Cancel</a>
 
     </form>
 

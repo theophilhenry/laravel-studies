@@ -37,17 +37,25 @@ class SupplierController extends Controller
 
     public function edit(Supplier $supplier)
     {
-        //
+        return view("suppliers.edit", compact('supplier'));
     }
 
     public function update(Request $request, Supplier $supplier)
     {
-        //
+        $supplier->supplier_name = $request->get('supplier_name');
+        $supplier->supplier_address = $request->get('supplier_address');
+        $supplier->save();
+
+        session()->flash("success", "Success! Supplier is Updated");
+        return redirect()->route("suppliers.index");
     }
 
     public function destroy(Supplier $supplier)
     {
-        //
+        $supplier->delete();
+        session()->flash("success", "Success! Supplier is Deleted");
+        return redirect()->route("suppliers.index");
+
     }
 
     public function totalproductpersupplier()
