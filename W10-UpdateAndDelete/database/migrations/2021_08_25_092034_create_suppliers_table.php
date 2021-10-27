@@ -18,6 +18,7 @@ class CreateSuppliersTable extends Migration
             $table->string('supplier_name');
             $table->string('supplier_address');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -52,9 +52,16 @@ class SupplierController extends Controller
 
     public function destroy(Supplier $supplier)
     {
-        $supplier->delete();
-        session()->flash("success", "Success! Supplier is Deleted");
-        return redirect()->route("suppliers.index");
+        try {
+            $supplier->delete();
+            $supplier->products()->delete();
+
+            session()->flash("success", "Success! Supplier is Deleted");
+            return redirect()->route("suppliers.index");
+        } catch (\PDOException $ex) {
+            session()->flash("error", "Please contact our administrator");
+            return redirect()->route("suppliers.index");
+        }
 
     }
 

@@ -51,9 +51,16 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        $category->delete();
-        session()->flash("success", "Success! Category is Deleted");
-        return redirect()->route("categories.index");
+        try {
+            $category->delete();
+            $category->listOfProducts()->delete();
+            
+            session()->flash("success", "Success! Category is Deleted");
+            return redirect()->route("categories.index");
+        } catch (\PDOException $ex) {
+            session()->flash("error", "Please contact our administrator");
+            return redirect()->route("suppliers.index");
+        }
     }
 
     public function showCake(Category $category)
