@@ -13,7 +13,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <a href="#">Create New Category</a>
+                <a href="#">Edit Category</a>
             </li>
         </ul>
         <div class="page-toolbar">
