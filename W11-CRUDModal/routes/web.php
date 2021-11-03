@@ -28,4 +28,8 @@ Route::get('/reports/totalproductpercategory', "CategoryController@totalproductp
 
 Route::post('transactions/showshowAjax', 'TransactionController@showAjax')->name('transactions.showAjax');
 Route::post('suppliers/showshowAjax', 'SupplierController@showAjax')->name('suppliers.showAjax');
+Route::post('suppliers/getModalEdit', 'SupplierController@getModalEdit')->name('suppliers.getModalEdit');
+Route::post('suppliers/getModalEditNoReload', 'SupplierController@getModalEditNoReload')->name('suppliers.getModalEditNoReload');
+Route::post('suppliers/updateSupplierNoReload', 'SupplierController@updateSupplierNoReload')->name('suppliers.updateSupplierNoReload');
+Route::post('suppliers/deleteSupplierNoReload', 'SupplierController@deleteSupplierNoReload')->name('suppliers.deleteSupplierNoReload');
 

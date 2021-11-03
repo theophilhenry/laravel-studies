@@ -62,7 +62,6 @@ class SupplierController extends Controller
             session()->flash("error", "Please contact our administrator");
             return redirect()->route("suppliers.index");
         }
-
     }
 
     public function totalproductpersupplier()
@@ -86,5 +85,57 @@ class SupplierController extends Controller
         return response()->json(array(
             'msg' => view('suppliers.showmodal', compact('supplier', 'products'))->render()
         ), 200);
+    }
+
+    public function getModalEdit(Request $request)
+    {
+        $id = $request->get('id');
+        $supplier = Supplier::find($id);
+        return response()->json(array(
+            'msg' => view('suppliers.modalEdit', compact('supplier'))->render()
+        ), 200);
+    }
+
+    public function getModalEditNoReload(Request $request)
+    {
+        $id = $request->get('id');
+        $supplier = Supplier::find($id);
+        return response()->json(array(
+            'msg' => view('suppliers.modalEditNoReload', compact('supplier'))->render()
+        ), 200);
+    }
+    
+    public function updateSupplierNoReload(Request $request)
+    {
+        $id = $request->get('id');
+        $supplier = Supplier::find($id);
+        $supplier->supplier_name = $request->get('name');
+        $supplier->supplier_address = $request->get('address');
+        $supplier->save();
+        return response()->json(array(
+            'msg' => "Data Supplier Updated"
+        ), 200);
+    }
+    
+    public function deleteSupplierNoReload(Request $request)
+    {
+        
+        try {
+            $id = $request->get('id');
+            $supplier = Supplier::find($id);
+
+            $supplier->delete();
+            $supplier->products()->delete();
+
+            return response()->json(array(
+                'status' => 'success',
+                'msg' => "Data Supplier Success"
+            ), 200);
+        } catch (\PDOException $ex) {
+            return response()->json(array(
+                'status' => 'error',
+                'msg' => "Delete Supplier error : " . $ex
+            ), 200);
+        }
     }
 }
