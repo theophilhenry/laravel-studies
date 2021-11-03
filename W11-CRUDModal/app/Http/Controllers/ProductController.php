@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index()
     {
         $queryModel = Product::all();
-        return view('products.grid', ['data' => $queryModel]);
+        return view('products.grid', ['data' => $queryModel, 'categories' => Category::all(), 'suppliers' => Supplier::all()]);
     }
 
     public function create()
@@ -70,5 +70,63 @@ class ProductController extends Controller
         $product->delete();
         session()->flash("success", "Success! Product is Deleted");
         return redirect()->route("products.index");
+    }
+
+    public function getModalEdit(Request $request)
+    {
+        $id = $request->get('id');
+        $product = Product::find($id);
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+        return response()->json(array(
+            'msg' => view('products.modalEdit', compact('product', 'categories', 'suppliers'))->render()
+        ), 200);
+    }
+
+    public function getModalEditNoReload(Request $request)
+    {
+        $id = $request->get('id');
+        $product = Product::find($id);
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+        return response()->json(array(
+            'msg' => view('products.modalEditNoReload', compact('product', 'categories', 'suppliers'))->render()
+        ), 200);
+    }
+    
+    public function updateProductNoReload(Request $request)
+    {
+        $id = $request->get('id');
+        $product = Product::find($id);
+        $product->product_name = $request->get('product_name');
+        $product->product_production_price = $request->get('product_production_price');
+        $product->product_selling_price = $request->get('product_selling_price');
+        $product->product_stock = $request->get('product_stock');
+        $product->category_id = $request->get("product_category_id");
+        $product->supplier_id = $request->get("product_supplier_id");
+        $product->save();
+        return response()->json(array(
+            'msg' => "Data Product Updated"
+        ), 200);
+    }
+    
+    public function deleteProductNoReload(Request $request)
+    {
+        try {
+            $id = $request->get('id');
+            $product = Product::find($id);
+
+            $product->delete();
+
+            return response()->json(array(
+                'status' => 'success',
+                'msg' => "Data Product Success"
+            ), 200);
+        } catch (\PDOException $ex) {
+            return response()->json(array(
+                'status' => 'error',
+                'msg' => "Delete Product error : " . $ex
+            ), 200);
+        }
     }
 }

@@ -18,8 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/products', 'ProductController');
-Route::resource('/suppliers', 'SupplierController');
 Route::resource('/categories', 'CategoryController');
 Route::resource('/transactions', 'TransactionController');
 
@@ -27,6 +25,14 @@ Route::get('/reports/showcake/{category:category_name}', 'CategoryController@sho
 Route::get('/reports/totalproductpercategory', "CategoryController@totalproductpercategory")->name('reports.totalProductPerCategory');
 
 Route::post('transactions/showshowAjax', 'TransactionController@showAjax')->name('transactions.showAjax');
+
+Route::resource('/products', 'ProductController');
+Route::post('products/getModalEdit', 'ProductController@getModalEdit')->name('products.getModalEdit');
+Route::post('products/getModalEditNoReload', 'ProductController@getModalEditNoReload')->name('products.getModalEditNoReload');
+Route::post('products/updateProductNoReload', 'ProductController@updateProductNoReload')->name('products.updateProductNoReload');
+Route::post('products/deleteProductNoReload', 'ProductController@deleteProductNoReload')->name('products.deleteProductNoReload');
+
+Route::resource('/suppliers', 'SupplierController');
 Route::post('suppliers/showshowAjax', 'SupplierController@showAjax')->name('suppliers.showAjax');
 Route::post('suppliers/getModalEdit', 'SupplierController@getModalEdit')->name('suppliers.getModalEdit');
 Route::post('suppliers/getModalEditNoReload', 'SupplierController@getModalEditNoReload')->name('suppliers.getModalEditNoReload');

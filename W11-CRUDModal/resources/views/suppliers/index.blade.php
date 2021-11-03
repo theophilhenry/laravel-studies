@@ -88,7 +88,6 @@
     {{-- / ADD MODAL --}}
 
     {{-- EDIT MODAL --}}
-
     <div class="modal fade" id="modalEdit" tabindex="-1" role="modal" aria-hidden="true" style="display: none;">
     </div>
     {{-- / EDIT MODAL --}}
