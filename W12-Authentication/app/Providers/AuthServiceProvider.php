@@ -26,5 +26,12 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        // Gate::define('delete-permission', function($user){
+        //     return ($user->role == "owner");
+        // });
+
+        Gate::define('delete-supplier-permission', 'App\Policies\SupplierPolicy@delete');
+        Gate::define('delete-product-permission', 'App\Policies\ProductPolicy@delete');
+        Gate::define('edit-product-permission', 'App\Policies\ProductPolicy@edit');
     }
 }

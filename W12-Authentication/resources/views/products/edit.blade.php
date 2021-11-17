@@ -29,6 +29,12 @@
             <label for="inputName">Name</label>
             <input type="text" class="form-control" id="inputName" name="product_name" value="{{ $product->product_name }}">
         </div>
+        @can('edit-product-permission', $product)
+        <div class="form-group">
+            <label for="inputProductImage">Product Image Name</label>
+            <input type="text" class="form-control" id="inputProductImage" name="product_image" value="{{ $product->product_image }}">
+        </div>
+        @endcan
         <div class="form-group">
             <label for="inputProductionPrice">Production Price</label>
             <input type="text" class="form-control" id="inputProductionPrice" name="product_production_price" value="{{ $product->product_production_price }}">

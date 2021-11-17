@@ -82,18 +82,23 @@ License: You must have a valid license purchased only from themeforest(the above
 				<!-- BEGIN USER LOGIN DROPDOWN -->
 				<li class="dropdown user">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-						<img alt="" src="{{ asset('conquer2/assets/img/avatar3_small.jpg') }}" />
-						<span class="username username-hide-on-mobile">Nick </span>
+						<span class="username username-hide-on-mobile">{{ Auth::user()->name ?? "Menu" }}</span>
 						<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="extra_profile.html"><i class="fa fa-user"></i> My Profile</a>
-						</li>
-						<li class="divider">
-						</li>
-						<li>
-							<a href="login.html"><i class="fa fa-key"></i> Log Out</a>
+							@guest
+							<a href="{{ route('login') }}">
+								<i class="fa fa-key"></i>Log In</a>
+							@endguest
+							@auth
+							<a href="{{ route('logout') }}" onclick="event.preventDefault();
+											document.getElementById('logout-form').submit();">
+								<i class="fa fa-key"></i> Log Out</a>
+							<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+								@csrf
+							</form>
+							@endauth
 						</li>
 					</ul>
 				</li>
@@ -137,6 +142,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							<span class="selected"></span>
 						</a>
 					</li>
+					@auth
 					<li class='{{ (request()->is("categories")) ? "active" : ""}}'>
 						<a href="{{ route('categories.index') }}">
 							<i class="icon-note"></i>
@@ -185,6 +191,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						</a>
 					</li>
 				</ul>
+				@endauth
 				<!-- END SIDEBAR MENU -->
 			</div>
 		</div>

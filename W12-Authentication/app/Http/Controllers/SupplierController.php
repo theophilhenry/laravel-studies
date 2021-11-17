@@ -52,6 +52,8 @@ class SupplierController extends Controller
 
     public function destroy(Supplier $supplier)
     {
+        $this->authorize('delete-supplier-permission', $supplier);
+
         try {
             $supplier->delete();
             $supplier->products()->delete();

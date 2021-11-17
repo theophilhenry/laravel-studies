@@ -43,8 +43,10 @@
                     <a href="{{ route('suppliers.edit', $supplier->id) }}" class="btn btn-primary btn-sm">Edit</a>
                     <a href="#modalEdit" data-toggle="modal" class="btn btn-primary btn-sm" onclick="getModalEdit({{ $supplier->id }})">Edit A (Modal)</a>
                     <a href="#modalEdit" data-toggle="modal" class="btn btn-primary btn-sm" onclick="getModalEditNoReload({{ $supplier->id }})">Edit B (No Reload)</a>
+                    @can('delete-supplier-permission', $supplier)
                     <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="post" style="display: inline;">@csrf @method('DELETE')<button type="submit" href="" class="btn btn-danger btn-sm" onclick="if(!confirm('Delete the data?')) return false;">Delete</button></form>
                     <button class="btn btn-danger btn-sm" onclick="if(!confirm('Delete the data?')) return false; else deleteSupplierNoReload({{ $supplier->id }})">Delete (No Reload)</button>
+                    @endcan
                     <a href="#modalSupplier" class="btn btn-warning btn-sm" data-toggle="modal" onclick="getDetailData({{ $supplier->id }})"><i class="fa fa-pencil"></i>Show w/ Modal AJAX</a>
                 </td>
             </tr>

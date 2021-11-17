@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::view('/', 'dashboard');
+Route::view('/home', 'home')->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+    Route::resource('/suppliers', 'SupplierController');
+    Route::post('suppliers/showshowAjax', 'SupplierController@showAjax')->name('suppliers.showAjax');
+    Route::post('suppliers/getModalEdit', 'SupplierController@getModalEdit')->name('suppliers.getModalEdit');
+    Route::post('suppliers/getModalEditNoReload', 'SupplierController@getModalEditNoReload')->name('suppliers.getModalEditNoReload');
+    Route::post('suppliers/updateSupplierNoReload', 'SupplierController@updateSupplierNoReload')->name('suppliers.updateSupplierNoReload');
+    Route::post('suppliers/deleteSupplierNoReload', 'SupplierController@deleteSupplierNoReload')->name('suppliers.deleteSupplierNoReload');
 });
 
 Route::resource('/categories', 'CategoryController');
@@ -31,11 +42,3 @@ Route::post('products/getModalEdit', 'ProductController@getModalEdit')->name('pr
 Route::post('products/getModalEditNoReload', 'ProductController@getModalEditNoReload')->name('products.getModalEditNoReload');
 Route::post('products/updateProductNoReload', 'ProductController@updateProductNoReload')->name('products.updateProductNoReload');
 Route::post('products/deleteProductNoReload', 'ProductController@deleteProductNoReload')->name('products.deleteProductNoReload');
-
-Route::resource('/suppliers', 'SupplierController');
-Route::post('suppliers/showshowAjax', 'SupplierController@showAjax')->name('suppliers.showAjax');
-Route::post('suppliers/getModalEdit', 'SupplierController@getModalEdit')->name('suppliers.getModalEdit');
-Route::post('suppliers/getModalEditNoReload', 'SupplierController@getModalEditNoReload')->name('suppliers.getModalEditNoReload');
-Route::post('suppliers/updateSupplierNoReload', 'SupplierController@updateSupplierNoReload')->name('suppliers.updateSupplierNoReload');
-Route::post('suppliers/deleteSupplierNoReload', 'SupplierController@deleteSupplierNoReload')->name('suppliers.deleteSupplierNoReload');
-

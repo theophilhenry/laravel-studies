@@ -67,6 +67,8 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        $this->authorize('delete-product-permission', $product);
+
         $product->delete();
         session()->flash("success", "Success! Product is Deleted");
         return redirect()->route("products.index");
