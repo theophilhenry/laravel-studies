@@ -95,7 +95,7 @@ class ProductController extends Controller
             'msg' => view('products.modalEditNoReload', compact('product', 'categories', 'suppliers'))->render()
         ), 200);
     }
-    
+
     public function updateProductNoReload(Request $request)
     {
         $id = $request->get('id');
@@ -111,7 +111,7 @@ class ProductController extends Controller
             'msg' => "Data Product Updated"
         ), 200);
     }
-    
+
     public function deleteProductNoReload(Request $request)
     {
         try {
@@ -130,5 +130,34 @@ class ProductController extends Controller
                 'msg' => "Delete Product error : " . $ex
             ), 200);
         }
+    }
+
+    public function front_index()
+    {
+        $products = Product::all();
+        return view('products.product', compact('products'));
+    }
+
+    public function addToCart(Product $product)
+    {
+        $cart = session()->get('cart');
+        if (!isset($cart[$product->id])) {
+            $cart[$product->id] = [
+                "product_name" => $product->product_name,
+                "quantity" => 1,
+                "product_selling_price" => $product->product_selling_price,
+                "product_image" => $product->product_image,
+            ];
+        } else {
+            $cart[$product->id]['quantity']++;
+        }
+
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Product added to Cart Succesfully!');
+    }
+
+    public function cart()
+    {
+        return view('products.cart');
     }
 }

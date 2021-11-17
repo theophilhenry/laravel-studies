@@ -22,6 +22,7 @@ class CreateProductTransactionTable extends Migration
             
             $table->integer('quantity');
             $table->double('product_price');
+            $table->double('subtotal');
         });
     }
 

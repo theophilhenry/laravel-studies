@@ -42,3 +42,10 @@ Route::post('products/getModalEdit', 'ProductController@getModalEdit')->name('pr
 Route::post('products/getModalEditNoReload', 'ProductController@getModalEditNoReload')->name('products.getModalEditNoReload');
 Route::post('products/updateProductNoReload', 'ProductController@updateProductNoReload')->name('products.updateProductNoReload');
 Route::post('products/deleteProductNoReload', 'ProductController@deleteProductNoReload')->name('products.deleteProductNoReload');
+
+Route::get('/', 'ProductController@front_index');
+Route::get('cart', 'ProductController@cart');
+Route::get('add-to-cart/{product}', 'ProductController@addToCart');
+
+Route::get('/checkout', 'TransactionController@form_submit_front')->middleware(['auth']);
+Route::get('/submit_checkout', 'TransactionController@submit_front')->name('submitcheckout')->middleware(['auth']);

@@ -19,10 +19,11 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade')->onUpdate('cascade');
             
-            $table->foreignId('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('cashier_id')->nullable();
+            $table->foreign('cashier_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             
             $table->dateTime('transaction_date');
+            $table->integer('total')->default(0);
 
             $table->timestamps();
         });
