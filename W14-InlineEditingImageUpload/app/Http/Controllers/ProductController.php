@@ -7,6 +7,7 @@ use App\Product;
 use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -32,7 +33,12 @@ class ProductController extends Controller
         $product->product_stock = $request->get('product_stock');
         $product->category_id = $request->get("category_id");
         $product->supplier_id = $request->get("supplier_id");
-        $product->product_image = "default.png";
+
+        $file = $request->file('product_image');
+        $imgFile = time() . "_" . $file->getClientOriginalName();
+        $file->move('images', $imgFile);
+        $product->product_image = $imgFile;
+
         $product->save();
 
         session()->flash("success", "Success! Product is Stored");
@@ -159,5 +165,35 @@ class ProductController extends Controller
     public function cart()
     {
         return view('products.cart');
+    }
+    
+    public function saveDataField(Request $request)
+    {
+        $id = $request->get('id');
+        $fname = 'product_' . $request->get('fname');
+        $value = $request->get('value');
+
+        $product = Product::find($id);
+        $product->$fname = $value;
+        $product->save();
+        return response()->json(array('status' => 'OK', 'msg' => 'Product Data Updated'), 200);
+    }
+
+    public function changeLogo(Request $request)
+    {
+        $id = $request->get('id');
+        $product = Product::find($id);
+       
+        // Remove the old Image
+        File::delete('images/'.$product->product_image);
+
+        $file = $request->file('product_image');
+        $imgFile = time() . "_" . $file->getClientOriginalName();
+        $file->move('images', $imgFile);
+
+
+        $product->product_image = $imgFile;
+        $product->save();
+        return redirect()->route('products.index')->with('success', 'Product Image is Changed');
     }
 }

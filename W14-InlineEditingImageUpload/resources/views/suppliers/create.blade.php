@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <form method="POST" action="{{ route('suppliers.store') }}">
+    <form method="POST" action="{{ route('suppliers.store') }}" enctype="multipart/form-data" role="form">
         @csrf
         
         <div class="form-group">
@@ -33,6 +33,10 @@
         <div class="form-group">
             <label>Address</label>
             <textarea class="form-control" rows="3" name="supplier_address"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Logo</label>
+            <input class="form-control" type="file" id='logo' name='logo'/>
         </div>
         <button type="submit" class="btn btn-info">Submit</button>
         <a href="{{ route('suppliers.index') }}" type="button" class="btn btn-default">Cancel</a>

@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <form method="POST" action="{{ route('products.store') }}">
+    <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data" role="form">
         @csrf
         
         <div class="form-group">
@@ -56,6 +56,11 @@
                 <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}</option>
                 @endforeach
             </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Image</label>
+            <input class="form-control" type="file" id='product_image' name='product_image'/>
         </div>
         
         <button type="submit" class="btn btn-info">Submit</button>

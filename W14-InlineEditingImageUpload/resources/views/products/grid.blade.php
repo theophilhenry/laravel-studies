@@ -27,14 +27,42 @@
         <div id="product_{{ $product->id }}" class="col-lg-3 col-md-4 col-sm-5">
             <div class="panel">
                 <div class="panel-heading">
-                    <img src="{{ asset('images/' . $product->product_image) }}" alt="..." style="height: 200px;">
+                    <img src="{{ asset('images/' . $product->product_image) }}" alt="..." height='200px'>
+
+                    {{-- CHANGE IMAGE MODAL --}}
+                    <div class="modal fade" id="modalChange_{{ $product->id }}" tabindex="-1" role="modal" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">Change Product Image</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="formModalChange_{{ $product->id }}" role="form" method="POST" action="{{ route('products.changeLogo') }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="inputName">Product Image</label>
+                                            <input type="hidden" class="form-control" name="id" value="{{ $product->id }}">
+                                            <input type="file" class="form-control" name="product_image">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-info" form="formModalChange_{{ $product->id }}">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- / CHANGE IMAGE MODAL --}}
+                    <br><a href="#modalChange_{{ $product->id }}" data-toggle="modal" class="btn btn-xs btn-primary">Change</a>
                 </div>
                 <div class="panel-body">
-                    <h5 class="card-title" id="product_production_name_{{ $product->id }}">{{ $product->product_name }}</h5>
+                    <h5 class="card-title editable" id="product_name_{{ $product->id }}">{{ $product->product_name }}</h5>
                     <p class="card-text">
-                    <p>Production Price : <span id="product_production_price_{{ $product->id }}">{{ $product->product_production_price }}</span></p>
-                    <p>Selling Price : <span id="product_selling_price_{{ $product->id }}">{{ $product->product_selling_price }}</span></p>
-                    <p>Stock : <span id="product_stock_{{ $product->id }}">{{ $product->product_stock }}</span></p>
+                    <p>Production Price : <span id="product_production_price_{{ $product->id }}" class="editable">{{ $product->product_production_price }}</span></p>
+                    <p>Selling Price : <span id="product_selling_price_{{ $product->id }}" class="editable">{{ $product->product_selling_price }}</span></p>
+                    <p>Stock : <span id="product_stock_{{ $product->id }}" class="editable">{{ $product->product_stock }}</span></p>
                     <p>Category : <span id="product_category_name_{{ $product->id }}">{{ $product->category->category_name }}</span></p>
                     <p>Supplier : <span id="product_supplier_name_{{ $product->id }}">{{ $product->supplier->supplier_name }}</span></p>
                     </p>
@@ -53,68 +81,68 @@
 </div>
 
 
-    {{-- ADD MODAL --}}
-    <div class="modal fade" id="modalCreate" tabindex="-1" role="modal" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Add New Supplier</h4>
-                </div>
-                <div class="modal-body" id="modalCreateBody">
-                    <form method="POST" action="{{ route('products.store') }}" id="formCreateProduct">
-                        @csrf
-                        
-                        <div class="form-group">
-                            <label for="inputName">Name</label>
-                            <input type="text" class="form-control" id="inputName" name="product_name">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputProductionPrice">Production Price</label>
-                            <input type="text" class="form-control" id="inputProductionPrice" name="product_production_price">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputSellingPrice">Selling Price</label>
-                            <input type="text" class="form-control" id="inputSellingPrice" name="product_selling_price">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputStock">Stock</label>
-                            <input type="text" class="form-control" id="inputStock" name="product_stock">
-                        </div>
-                        <div class="form-group">
-                            <label>Category</label>
-                            <select class="form-control" name="category_id">
-                                @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                
-                        <div class="form-group">
-                            <label>Supplier</label>
-                            <select class="form-control" name="supplier_id">
-                                @foreach ($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-info" form="formCreateProduct">Submit</button>
-                </div>
+{{-- ADD MODAL --}}
+<div class="modal fade" id="modalCreate" tabindex="-1" role="modal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Add New Supplier</h4>
+            </div>
+            <div class="modal-body" id="modalCreateBody">
+                <form method="POST" action="{{ route('products.store') }}" id="formCreateProduct">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="inputName">Name</label>
+                        <input type="text" class="form-control" id="inputName" name="product_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputProductionPrice">Production Price</label>
+                        <input type="text" class="form-control" id="inputProductionPrice" name="product_production_price">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSellingPrice">Selling Price</label>
+                        <input type="text" class="form-control" id="inputSellingPrice" name="product_selling_price">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputStock">Stock</label>
+                        <input type="text" class="form-control" id="inputStock" name="product_stock">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select class="form-control" name="category_id">
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Supplier</label>
+                        <select class="form-control" name="supplier_id">
+                            @foreach ($suppliers as $supplier)
+                            <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-info" form="formCreateProduct">Submit</button>
             </div>
         </div>
     </div>
-    {{-- / ADD MODAL --}}
+</div>
+{{-- / ADD MODAL --}}
 
-    
-    {{-- EDIT MODAL --}}
-    <div class="modal fade" id="modalEdit" tabindex="-1" role="modal" aria-hidden="true" style="display: none;">
-    </div>
-    {{-- / EDIT MODAL --}}
+
+{{-- EDIT MODAL --}}
+<div class="modal fade" id="modalEdit" tabindex="-1" role="modal" aria-hidden="true" style="display: none;">
+</div>
+{{-- / EDIT MODAL --}}
 @endsection
 
 @section('ajax')
@@ -172,7 +200,7 @@
             success: function(data) {
                 alert(data.msg);
                 // TODO
-                $('#product_production_name_'+id).html(product_name);
+                $('#product_name_'+id).html(product_name);
                 $('#product_production_price_'+id).html(product_production_price);
                 $('#product_selling_price_'+id).html(product_selling_price);
                 $('#product_stock_'+id).html(product_stock);
@@ -197,5 +225,37 @@
             }
         });
     }
+</script>
+@endsection
+
+@section('initialscript')
+<script>
+    $('.editable').editable({
+            closeOnEnter: true,
+            callback: function(data){
+                if(data.content){
+                    var s_id = data.$el[0].id;
+                    var splitted = s_id.split('_');
+                    var id = splitted.at(-1);
+                    splitted.shift();
+                    splitted.pop();
+                    var fname = splitted.join("_");
+
+                    $.ajax({
+                        type:'POST',
+                        url:"{{ route('products.saveDataField') }}",
+                        data:{
+                            '_token': '<?php echo csrf_token() ?>',
+                            'id': id,
+                            'fname': fname,
+                            'value': data.content
+                        },
+                        success: function(data){
+                            alert(data.msg);
+                        }
+                    })
+                }
+            }
+        });
 </script>
 @endsection

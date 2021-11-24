@@ -30,6 +30,7 @@
                 <th>ID</th>
                 <th>Supplier Name</th>
                 <th>Supplier Adress</th>
+                <th>Logo</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -37,8 +38,38 @@
             @foreach ($data as $supplier)
             <tr id="tr_supplier_{{$supplier->id}}">
                 <td class="numeric">{{ $supplier->id }}</td>
-                <td id="td_supplier_name_{{$supplier->id}}">{{ $supplier->supplier_name }}</td>
-                <td id="td_supplier_address_{{$supplier->id}}">{{ $supplier->supplier_address }}</td>
+                <td class="editable" id="td_supplier_name_{{$supplier->id}}">{{ $supplier->supplier_name }}</td>
+                <td class="editable" id="td_supplier_address_{{$supplier->id}}">{{ $supplier->supplier_address }}</td>
+                <td>
+                    <img height='50px' src="{{ asset('images').'/'.$supplier->supplier_logo }}" alt="">
+                    {{-- CHANGE LOGO MODAL --}}
+                    <div class="modal fade" id="modalChange_{{ $supplier->id }}" tabindex="-1" role="modal" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">Change Logo</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="formModalChange_{{ $supplier->id }}" role="form" method="POST" action="{{ route('suppliers.changeLogo') }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="inputName">Logo</label>
+                                            <input type="hidden" class="form-control" name="id" value="{{ $supplier->id }}">
+                                            <input type="file" class="form-control" name="logo">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-info" form="formModalChange_{{ $supplier->id }}">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- / CHANGE LOGO MODAL --}}
+                    <br><a href="#modalChange_{{ $supplier->id }}" data-toggle="modal" class="btn btn-xs btn-primary">Change</a>
+                </td>
                 <td>
                     <a href="{{ route('suppliers.edit', $supplier->id) }}" class="btn btn-primary btn-sm">Edit</a>
                     <a href="#modalEdit" data-toggle="modal" class="btn btn-primary btn-sm" onclick="getModalEdit({{ $supplier->id }})">Edit A (Modal)</a>
@@ -68,7 +99,6 @@
                 <div class="modal-body" id="modalCreateBody">
                     <form method="POST" action="{{ route('suppliers.store') }}" id="formCreateSupplier">
                         @csrf
-
                         <div class="form-group">
                             <label for="inputName">Name</label>
                             <input type="text" class="form-control" id="inputName" placeholder="Enter Name" name="supplier_name">
@@ -93,6 +123,7 @@
     <div class="modal fade" id="modalEdit" tabindex="-1" role="modal" aria-hidden="true" style="display: none;">
     </div>
     {{-- / EDIT MODAL --}}
+
     @endsection
 
     @section('ajax')
@@ -171,5 +202,34 @@
                 }
             });
         }
+    </script>
+    @endsection
+
+    @section('initialscript')
+    <script>
+        $('.editable').editable({
+                closeOnEnter: true,
+                callback: function(data){
+                    if(data.content){
+                        var s_id = data.$el[0].id;
+                        var fname = s_id.split('_')[2];
+                        var id = s_id.split('_')[3];
+
+                        $.ajax({
+                            type:'POST',
+                            url:"{{ route('suppliers.saveDataField') }}",
+                            data:{
+                                '_token': '<?php echo csrf_token() ?>',
+                                'id': id,
+                                'fname': fname,
+                                'value': data.content
+                            },
+                            success: function(data){
+                                alert(data.msg);
+                            }
+                        })
+                    }
+                }
+            });
     </script>
     @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class SupplierController extends Controller
 {
@@ -24,6 +25,12 @@ class SupplierController extends Controller
         $supplier = new Supplier();
         $supplier->supplier_name = $request->get('supplier_name');
         $supplier->supplier_address = $request->get('supplier_address');
+
+        $file = $request->file('logo');
+        $imgFile = time() . "_" . $file->getClientOriginalName();
+        $file->move('images', $imgFile);
+        $supplier->supplier_logo = $imgFile;
+
         $supplier->save();
 
         session()->flash("success", "Success! Supplier is Stored");
@@ -106,7 +113,7 @@ class SupplierController extends Controller
             'msg' => view('suppliers.modalEditNoReload', compact('supplier'))->render()
         ), 200);
     }
-    
+
     public function updateSupplierNoReload(Request $request)
     {
         $id = $request->get('id');
@@ -118,10 +125,10 @@ class SupplierController extends Controller
             'msg' => "Data Supplier Updated"
         ), 200);
     }
-    
+
     public function deleteSupplierNoReload(Request $request)
     {
-        
+
         try {
             $id = $request->get('id');
             $supplier = Supplier::find($id);
@@ -139,5 +146,35 @@ class SupplierController extends Controller
                 'msg' => "Delete Supplier error : " . $ex
             ), 200);
         }
+    }
+
+    public function saveDataField(Request $request)
+    {
+        $id = $request->get('id');
+        $fname = 'supplier_' . $request->get('fname');
+        $value = $request->get('value');
+
+        $supplier = Supplier::find($id);
+        $supplier->$fname = $value;
+        $supplier->save();
+        return response()->json(array('status' => 'OK', 'msg' => 'Supplier Data Updated'), 200);
+    }
+
+    public function changeLogo(Request $request)
+    {
+        $id = $request->get('id');
+        $supplier = Supplier::find($id);
+       
+        // Remove the old Image
+        File::delete('images/'.$supplier->supplier_logo);
+
+        $file = $request->file('logo');
+        $imgFile = time() . "_" . $file->getClientOriginalName();
+        $file->move('images', $imgFile);
+
+
+        $supplier->supplier_logo = $imgFile;
+        $supplier->save();
+        return redirect()->route('suppliers.index')->with('status', 'Supplier Logo is Changed');
     }
 }

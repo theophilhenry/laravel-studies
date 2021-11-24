@@ -255,6 +255,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<script src="{{ asset('conquer2/assets/scripts/app.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('conquer2/assets/scripts/index.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('conquer2/assets/scripts/tasks.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('js/jquery.editable.min.js') }}" type="text/javascript"></script>
 	<!-- END PAGE LEVEL SCRIPTS -->
 	<script>
 		jQuery(document).ready(function() {
@@ -271,6 +272,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			Tasks.initDashboardWidget();
 		});
 	</script>
+	@yield('initialscript')
 	<!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

@@ -17,6 +17,7 @@ class CreateSuppliersTable extends Migration
             $table->id();
             $table->string('supplier_name');
             $table->string('supplier_address');
+            $table->string('supplier_logo')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

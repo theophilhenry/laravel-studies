@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::post('suppliers/getModalEditNoReload', 'SupplierController@getModalEditNoReload')->name('suppliers.getModalEditNoReload');
     Route::post('suppliers/updateSupplierNoReload', 'SupplierController@updateSupplierNoReload')->name('suppliers.updateSupplierNoReload');
     Route::post('suppliers/deleteSupplierNoReload', 'SupplierController@deleteSupplierNoReload')->name('suppliers.deleteSupplierNoReload');
+    Route::post('supplier/saveDataField', 'SupplierController@saveDataField')->name('suppliers.saveDataField');
+    Route::post('supplier/changeLogo', 'SupplierController@changeLogo')->name('suppliers.changeLogo');
 });
 
 Route::resource('/categories', 'CategoryController');
@@ -42,6 +44,8 @@ Route::post('products/getModalEdit', 'ProductController@getModalEdit')->name('pr
 Route::post('products/getModalEditNoReload', 'ProductController@getModalEditNoReload')->name('products.getModalEditNoReload');
 Route::post('products/updateProductNoReload', 'ProductController@updateProductNoReload')->name('products.updateProductNoReload');
 Route::post('products/deleteProductNoReload', 'ProductController@deleteProductNoReload')->name('products.deleteProductNoReload');
+Route::post('products/saveDataField', 'ProductController@saveDataField')->name('products.saveDataField');
+Route::post('products/changeLogo', 'ProductController@changeLogo')->name('products.changeLogo');
 
 Route::get('/', 'ProductController@front_index');
 Route::get('cart', 'ProductController@cart');
